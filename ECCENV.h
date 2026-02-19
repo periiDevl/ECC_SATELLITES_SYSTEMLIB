@@ -12,8 +12,11 @@ typedef enum
 }ECC_types;
 typedef struct
 {
-    uint16_t validator_code;
-    uint8_t position_in_memory;
+    union {
+        uint16_t validator_code;    // For CRC16 / Fletcher
+        uint8_t rs_parity[10];      // For Reed-Solomon (fixes up to 5 bytes)
+    };
+    uint64_t position_in_memory;
     ECC_types algo_type;
 }ECC_DATA_STRUCT;
 

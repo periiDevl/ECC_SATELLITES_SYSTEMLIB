@@ -14,29 +14,32 @@ void VALIDATOR_initValidator()
 	printf("(needs to be 255) data = %d\n",actual_data->validator_code);
 }
 
-
 void DEBUG_PRINT_MEMORY()
 {
-	printf("[DEBUG] Starting to read...\n");
-	struct LinkedList* _start = _heapHead;
-	ECC_DATA_STRUCT* stored_data = (ECC_DATA_STRUCT*)(_start->data);
-	if(stored_data == NULL){printf("no memory saved yet..\n");}
-	uint64_t counter=1;
-	printf("clearing space...");
-	printf("\n\n\n\n\n\n\n\n\n");
-	while(_start != NULL)
-	{
-		printf("[ECC memory block no.%ld]\n",counter);
-		printf("------------------------\n");
-		stored_data = (ECC_DATA_STRUCT*)(_start->data);
-		printf("|valid_code : %d      |\n", stored_data->validator_code);
-		printf("|position_in_memory : %d|\n",stored_data->position_in_memory);
-		printf("|type : ");
-		if (stored_data->algo_type == CRC16){printf("CRC16");}else if(stored_data->algo_type == FLETCHER16){printf("FLETCHER16");}else if(stored_data->algo_type == REEDSOLOMON){printf("REED_SOLOMON");}
-		printf("\n");
-		printf("-----------------------\n\n");
-		_start = _start->next;
-		counter++;
-	}
-	printf("ended.\n\n");
+    struct LinkedList* _start = _heapHead;
+    uint64_t counter = 1;
+
+    printf("\n[DEBUG] MEMORY DUMP START\n");
+
+    while(_start != NULL)
+    {
+        ECC_DATA_STRUCT* stored_data = (ECC_DATA_STRUCT*)(_start->data);
+        
+        const char* algo = "UNKNOWN";
+        if (stored_data->algo_type == CRC16) algo = "CRC16";
+        else if (stored_data->algo_type == FLETCHER16) algo = "FLETCHER16";
+        else if (stored_data->algo_type == REEDSOLOMON) algo = "REED_SOLOMON";
+
+        printf("+---------------------------------+\n");
+        printf("| ECC Block No. %-17ld |\n", counter);
+        printf("+---------------------------------+\n");
+        printf("| validator_code : %-6x%-7d  |\n", stored_data->validator_code,stored_data->validator_code);
+        printf("| memory_pos     : %-14ld |\n", stored_data->position_in_memory);
+        printf("| algo_type      : %-14s |\n", algo);
+        printf("+---------------------------------+\n\n");
+
+        _start = _start->next;
+        counter++;
+    }
+    printf("[DEBUG] MEMORY DUMP END\n\n");
 }
