@@ -1,7 +1,10 @@
 #pragma once
 #include"ECC_ENV.h"
 #include"HASHMAP_IMPL.h"
-
+// ECC_STRUCT , BOOL (TRUE, FALSE)
 static struct HashMap* mp;
 
 void ECC_MEMORY_INIT();
+ECC_DATA_STRUCT ECC_SEARCH_MEMORY(ECC_DATA_STRUCT* key);
+uint8_t ECC_MEMORY_NODE_COMPARE(ECC_DATA_STRUCT* node);
+void ECC_MEMORY_SAVE(ECC_DATA_STRUCT* data);
