@@ -1,0 +1,29 @@
+ECC SATELITE SYSTEM:
+
+ALG:
+FELTCHER16 ---> FOR INTERNAL SENSOR DATA (ONLY USE ON SATELITE)
+CRC16 ---> WHEN SATELITE RECIVES DATA FROM EARTH 
+REED-SOLOMON ---> WHEN THE SATELITE SENDS DATA TO EARTH (HARDEST)
+__________________________________________________|
+												  |
+												  |
+Avg search time O(0):
+validate(ALGO, OBJECT) -> ECCOBJECT
+ECCOBJECT:
+|--------|-----------|
+|ECC_ALGO|OBJECT_DATA|
+|BYTE    |UNLIMITED  |
+|--------------------|
+
+how is the hashmap searching?
+struct VALIDMAP_OBJ
+{
+	int(or however is stored)* ptr1
+	int(...)* ptr2
+}
+HASHMAP(ECC_ALGO+OBJECT_DATA, VALIDMAP_OBJ);
+
+then you have 
+HASHMAP_CHECK ---> VALIDMAP_OBJ check (comparing the 2 physical memory location)
+----------------------------------------------------|
+													|

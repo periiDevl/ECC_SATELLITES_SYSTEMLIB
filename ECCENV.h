@@ -19,7 +19,7 @@ typedef struct
     uint64_t position_in_memory;
     ECC_types algo_type;
 }ECC_DATA_STRUCT;
-
+//Im going to replace this with the new HASHMAP system
 extern struct LinkedList* _heapHead;
 void VALIDATOR_initValidator();
 void DEBUG_PRINT_MEMORY();
